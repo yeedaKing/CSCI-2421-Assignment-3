@@ -11,7 +11,7 @@ using namespace std;
 
 void List::insert(int value) {   
     Node* temp = new Node(value);
-    if (!head->getNextPtr) {
+    if (!headPtr->getNextPtr()) {
         headPtr->setNextPtr(temp);
     
     } else {
@@ -29,7 +29,7 @@ void List::insertAtIndex(int data, int index) {
         }
         Node* temp = new Node(data);
         headPtr->setNextPtr(temp);
-        prevPtr->setPrevPtr(temp);
+        tailPtr->setPrevPtr(temp);
         return;
     }
     Node* curr = headPtr->getNextPtr();
@@ -70,7 +70,7 @@ void List::readItem(int index) {
         curr = curr->getNextPtr();
         index--;
     }
-    return curr;
+    cout << curr->getData() << endl;
 }
 
 void List::reverseList() {
@@ -93,16 +93,18 @@ void List::reverseList() {
 void List::printForward() {
     Node* curr = headPtr->getNextPtr();
     while (curr) {
-        cout << curr->getData() << endl;
+        cout << curr->getData() << ' ';
         curr = curr->getNextPtr();
     }
+    cout << endl;
 }
 
 void List::printBackward() {
     Node* curr = tailPtr->getPrevPtr();
     while (curr) {
-        cout << curr->getData() << endl;
+        cout << curr->getData() << ' ';
         curr = curr->getPrevPtr();
     }
+    cout << endl;
 }
 
