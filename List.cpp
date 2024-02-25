@@ -72,21 +72,18 @@ void List::readItem(int index) {
     }
     cout << curr->getData() << endl;
 }
-
+    
 void List::reverseList() {
-    Node* first = headPtr->getNextPtr();
-    Node* last = tailPtr->getPrevPtr();
-    while (last != first && last && first) {
-        Node* temp1 = first->getPrevPtr();
-        Node* temp2 = last->getPrevPtr();
-        temp1->setNextPtr(last);
-        temp2->setNextPtr(first);
-        first->getNextPtr()->setPrevPtr(last);
-        if (last->getNextPtr()) {
-            last->getNextPtr()->setPrevPtr(first);
-        }
-        first = first->getNextPtr();
-        last = last->getPrevPtr();
+    Node* temp = headPtr;
+    Node* curr = headPtr->getNextPtr();
+    while (curr) {
+        temp = curr->getPrevPtr();
+        curr->setPrevPtr(curr->getNextPtr());
+        curr->setNextPtr(temp);
+        curr = curr->getPrevPtr();
+    }
+    if (temp) {
+        headPtr->setNextPtr(temp->getPrevPtr());
     }
 }
 
