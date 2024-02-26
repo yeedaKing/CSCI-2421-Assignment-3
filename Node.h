@@ -15,8 +15,8 @@ private:
     Node* next;
     Node* prev;
 public:
-    Node():data(0),next(NULL),prev(NULL){}
-    Node(int val):data(val),next(NULL),prev(NULL){}
+    Node():data(0),next(nullptr),prev(nullptr){}
+    Node(int val):data(val),next(nullptr),prev(nullptr){}
     Node(int val, Node* n, Node* p):data(val),next(n),prev(p){}
     
     //mutator functions

@@ -74,13 +74,20 @@ void List::deleteAtIndex(int index) {
         return;
     }
     if (tailPtr->getPrevPtr() == curr) {
-        tailPtr->setPrevPtr(prev);
-    }
-    if (headPtr->getNextPtr() == curr) {
-        headPtr->setNextPtr(curr->getNextPtr());
+        if (prev != headPtr) {
+            tailPtr->setPrevPtr(prev);
+
+        } else {
+            tailPtr->setPrevPtr(nullptr);
+        }
+
+    } else {
+        curr->getNextPtr()->setPrevPtr(prev);
     }
     prev->setNextPtr(curr->getNextPtr());
-    prev->getNextPtr()->setPrevPtr(prev);
+    if (prev != headPtr) {
+        prev->getNextPtr()->setPrevPtr(prev);
+    }
 }
 
 void List::readItem(int index) {
@@ -89,7 +96,9 @@ void List::readItem(int index) {
         curr = curr->getNextPtr();
         index--;
     }
-    cout << curr->getData() << endl;
+    if (curr) {
+        cout << curr->getData() << endl;
+    }
 }
     
 void List::reverseList() {
