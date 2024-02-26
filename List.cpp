@@ -82,7 +82,7 @@ void List::deleteAtIndex(int index) {
         }
 
     } else {
-        if (prev != headPtr()) {
+        if (prev != headPtr) {
             curr->getNextPtr()->setPrevPtr(prev);
 
         } else {
