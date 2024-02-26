@@ -33,7 +33,7 @@ void List::insertAtIndex(int data, int index) {
         return;
     }
     Node* curr = headPtr->getNextPtr();
-    Node* prev = headPtr->getPrevPtr();
+    Node* prev = headPtr;
     while (curr && index) {
         prev = curr;
         curr = curr->getNextPtr();
@@ -42,9 +42,22 @@ void List::insertAtIndex(int data, int index) {
     if (index) {
         return;
     }
-    Node* temp = new Node(data, curr, prev);
-    prev->setNextPtr(temp);
-    curr->setPrevPtr(temp);
+    if (prev == headPtr) {
+        Node* temp = new Node(data, curr, nullptr);
+        headPtr->setNextPtr(temp);
+        if (!tailPtr->getPrevPtr()) {
+            tailPtr->setPrevPtr(temp);
+        }
+
+    } else if (!curr) {
+        Node* temp = new Node(data, nullptr, prev);
+        tailPtr->setPrevPtr(temp);
+
+    } else {
+        Node* temp = new Node(data, curr, prev);
+        prev->setNextPtr(temp);
+        curr->setPrevPtr(temp);
+    }
 }
 void List::deleteAtIndex(int index) {
     if (!headPtr->getNextPtr()) {
@@ -57,8 +70,14 @@ void List::deleteAtIndex(int index) {
         curr = curr->getNextPtr();
         index--;
     }
-    if (index) {
+    if (index || !curr) {
         return;
+    }
+    if (tailPtr->getPrevPtr() == curr) {
+        tailPtr->setPrevPtr(prev);
+    }
+    if (headPtr->getNextPtr() == curr) {
+        headPtr->setNextPtr(curr->getNextPtr());
     }
     prev->setNextPtr(curr->getNextPtr());
     prev->getNextPtr()->setPrevPtr(prev);
