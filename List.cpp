@@ -154,6 +154,12 @@ void List::readItem(int index) {
 }
     
 void List::reverseList() {
+    /**
+     * Reverses the list.
+     *
+     * @return void
+     */
+
     // Check for empty list
     if (headPtr->getNextPtr() == nullptr) {
         return;
