@@ -66,13 +66,12 @@ void List::insertAtIndex(int data, int index) {
     if (prev == headPtr) {
         Node* temp = new Node(data, curr, nullptr);
         headPtr->setNextPtr(temp);
-        if (!tailPtr->getPrevPtr()) {
-            tailPtr->setPrevPtr(temp);
-        }
+        curr->setPrevPtr(temp);
 
     // check if insert position is at end of list
     } else if (!curr) {
         Node* temp = new Node(data, nullptr, prev);
+        prev->setNextPtr(temp);
         tailPtr->setPrevPtr(temp);
 
     // insert position at middle of list
@@ -127,11 +126,6 @@ void List::deleteAtIndex(int index) {
     }
     // delete curr node
     prev->setNextPtr(curr->getNextPtr());
-    
-    // if curr is first node, no need to reassign prev pointer
-    if (prev != headPtr) {
-        prev->getNextPtr()->setPrevPtr(prev);
-    }
 }
 
 void List::readItem(int index) {
