@@ -154,26 +154,32 @@ void List::readItem(int index) {
 }
     
 void List::reverseList() {
-    /**
-     * Reverses the list.
-     *
-     * @return void 
-     */
+    // Check for empty list
+    if (headPtr->getNextPtr() == nullptr) {
+        return;
+    }
 
-    Node* temp = headPtr;
     Node* curr = headPtr->getNextPtr();
+    Node* prev = nullptr;
+    Node* next = nullptr;
+
+    // Store new first and last nodes to change after list is reversed
+    Node* newHead = tailPtr->getPrevPtr();
+    Node* newTail = headPtr->getNextPtr();
+
+    // Traverse through the list and change next and prev pointers accordingly
     while (curr) {
-        // place next node as previous node, repeat until all nodes have been swapped
-        temp = curr->getPrevPtr();
-        curr->setPrevPtr(curr->getNextPtr());
-        curr->setNextPtr(temp);
-        curr = curr->getPrevPtr();
+        next = curr->getNextPtr();
+        curr->setNextPtr(prev);
+        curr->setPrevPtr(next);
+        prev = curr;
+        curr = next;
     }
-    // reassign headPtr if temp isn't nullptr
-    if (temp) {
-        headPtr->setNextPtr(temp->getPrevPtr());
-    }
+    // Update head and tail pointers
+    headPtr->setNextPtr(newHead); 
+    tailPtr->setPrevPtr(newTail);
 }
+
 
 void List::printForward() {
     /**
